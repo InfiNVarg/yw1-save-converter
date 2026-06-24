@@ -289,16 +289,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 260px;
 }
 
 .arrow-icon {
     font-size: 3.5rem;
     color: #facc15;
+    offset-position: 1cm 2cm;
     text-shadow: 
         3px 3px 0 #000, 
         -3px -3px 0 #000, 
         3px -3px 0 #000, 
         -3px 3px 0 #000;
+    
 }
 
 /* ===== DROP ZONE CARD ===== */
@@ -805,6 +808,8 @@ body {
 
     .arrow-connector {
         transform: rotate(90deg);
+        height: auto;
+        padding: 0.5rem 0;
     }
 
     .drop-zone {
@@ -1214,3 +1219,113 @@ body {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+/* ===== TEAM & DISCORD SECTION ===== */
+.team-section {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.team-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background: #000;
+    border: 3px solid #000;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 2rem;
+    box-shadow: inset 0 0 0 3px #fff, 5px 5px 0 rgba(0, 0, 0, 0.15);
+    max-width: 550px;
+    width: 100%;
+}
+
+.team-logo {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+}
+
+.btn-discord {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'FOT-RodinNTLGPro-B', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #5865F2;
+    border: 2px solid #000;
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2), 3px 3px 0 #000;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-discord:hover {
+    background-color: #4752c4;
+}
+
+.btn-discord:active {
+    transform: translate(1px, 1px);
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2), 1px 1px 0 #000;
+}
+
+.discord-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* ===== FOOTER WARNING SECTION ===== */
+.footer-warning-section {
+    margin-bottom: 2.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-warning-card {
+    background-color: #fef3c7; /* soft amber */
+    border: 3px solid #000;
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    max-width: 850px;
+    width: 100%;
+    box-shadow: inset 0 0 0 3px #fff, 5px 5px 0 rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.warning-highlight {
+    font-family: 'FOT-RodinNTLGPro-B', sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #b45309; /* amber-dark */
+    margin: 0;
+}
+
+.ai-credit {
+    font-family: 'FOT-RodinNTLGPro-B', sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: #451a03; /* darker amber/brown */
+    margin: 0;
+    padding-top: 0.5rem;
+    border-top: 1.5px dashed rgba(180, 83, 9, 0.2);
+}
+
+@media (max-width: 600px) {
+    .team-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.25rem 1rem;
+    }
+    .team-logo {
+        height: 64px;
+    }
+}
+

@@ -403,6 +403,23 @@ body {
     display: inline-block;
 }
 
+.drop-icon-img {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+    border: 3px solid #000;
+    border-radius: 8px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.2s ease;
+}
+
+.drop-zone:hover .drop-icon-img {
+    transform: scale(1.05);
+}
+
 .drop-zone-title {
     font-family: 'FOT-YurukaStd-UB', sans-serif;
     font-weight: 700;

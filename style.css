@@ -105,7 +105,6 @@ body {
     background: radial-gradient(circle, var(--purple) 0%, transparent 70%);
     top: -10%;
     left: -5%;
-    animation: orbFloat1 18s ease-in-out infinite;
 }
 
 .orb-2 {
@@ -114,7 +113,6 @@ body {
     background: radial-gradient(circle, var(--cyan) 0%, transparent 70%);
     bottom: -10%;
     right: -5%;
-    animation: orbFloat2 22s ease-in-out infinite;
 }
 
 .orb-3 {
@@ -125,7 +123,6 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0.15;
-    animation: orbFloat3 15s ease-in-out infinite;
 }
 
 @keyframes orbFloat1 {
@@ -187,7 +184,6 @@ body {
     font-size: 2rem;
     letter-spacing: 0.5em;
     margin-bottom: 1rem;
-    animation: pulse 3s ease-in-out infinite;
 }
 
 .hero-title {
@@ -275,26 +271,17 @@ body {
     width: auto;
     object-fit: contain;
     filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
-    animation: jibanyanPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both, jibanyanIdle 4s ease-in-out infinite alternate;
+    animation: jibanyanPop 0.2s ease-out both;
 }
 
 @keyframes jibanyanPop {
     0% {
         opacity: 0;
-        transform: scale(0.6) translateY(30px);
+        transform: scale(0.95);
     }
     100% {
         opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-@keyframes jibanyanIdle {
-    0% {
-        transform: translateY(0) rotate(0deg);
-    }
-    100% {
-        transform: translateY(-8px) rotate(1.5deg);
+        transform: scale(1);
     }
 }
 
@@ -312,12 +299,6 @@ body {
         -3px -3px 0 #000, 
         3px -3px 0 #000, 
         -3px 3px 0 #000;
-    animation: arrowPulse 2s ease-in-out infinite;
-}
-
-@keyframes arrowPulse {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(8px); }
 }
 
 /* ===== DROP ZONE CARD ===== */
@@ -420,12 +401,6 @@ body {
     font-size: 3rem;
     margin-bottom: 0.75rem;
     display: inline-block;
-    animation: floatIcon 3s ease-in-out infinite;
-}
-
-@keyframes floatIcon {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
 }
 
 .drop-zone-title {
@@ -469,11 +444,11 @@ body {
 .drop-zone-info .file-icon {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
-    animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: popIn 0.2s ease-out both;
 }
 
 @keyframes popIn {
-    0% { transform: scale(0); opacity: 0; }
+    0% { transform: scale(0.95); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
 
@@ -907,13 +882,13 @@ body {
 
 /* ===== GLOBAL ANIMATIONS ===== */
 @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes pulse {
@@ -1059,12 +1034,12 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation: modalPop 0.2s ease-out both;
 }
 
 @keyframes modalPop {
-    0% { transform: scale(0.85) translateY(30px); opacity: 0; }
-    100% { transform: scale(1) translateY(0); opacity: 1; }
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 .modal-header {
@@ -1241,7 +1216,6 @@ body {
 
 .video-card-icon {
     font-size: 3rem;
-    animation: floatIcon 3s ease-in-out infinite;
 }
 
 .video-card-content {
@@ -1327,7 +1301,7 @@ body {
     border: 4px solid #fff;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation: modalPop 0.2s ease-out both;
 }
 
 .lightbox-close {

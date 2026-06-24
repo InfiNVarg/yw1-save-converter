@@ -338,8 +338,6 @@ body {
 .drop-zone:hover,
 .drop-zone:focus-visible {
     background-color: #ffd03b;
-    transform: translateY(-4px);
-    box-shadow: inset 0 0 0 3px #fff, 8px 8px 0 rgba(0, 0, 0, 0.2);
     border-color: #000;
 }
 
@@ -372,19 +370,10 @@ body {
     border-color: #000;
     background-color: #fca5a5;
     box-shadow: inset 0 0 0 3px #fff, 6px 6px 0 rgba(0, 0, 0, 0.15);
-    animation: shake 0.5s ease;
 }
 
 .drop-zone.error::before {
     background-color: #fee2e2;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-6px); }
-    40% { transform: translateX(6px); }
-    60% { transform: translateX(-4px); }
-    80% { transform: translateX(4px); }
 }
 
 .file-input {
@@ -416,9 +405,7 @@ body {
     transition: transform 0.2s ease;
 }
 
-.drop-zone:hover .drop-icon-img {
-    transform: scale(1.05);
-}
+
 
 .drop-zone-title {
     font-family: 'FOT-YurukaStd-UB', sans-serif;
@@ -521,8 +508,6 @@ body {
     color: #fff;
     background: #ef4444;
     border-color: #000;
-    transform: translate(-1px, -1px);
-    box-shadow: 3px 3px 0 #000;
 }
 
 /* ===== CONVERT BUTTON ===== */
@@ -571,8 +556,6 @@ body {
 }
 
 .btn-convert:not(:disabled):hover {
-    transform: translate(-2px, -2px);
-    box-shadow: inset 0 0 0 3px #fff, 6px 6px 0 #000;
     background-color: #ffd03b;
 }
 
@@ -625,103 +608,7 @@ body {
     color: #fbbf24;
 }
 
-/* ===== PROGRESS BAR ===== */
-.progress-wrapper {
-    margin-bottom: 1.5rem;
-    animation: fadeInUp 0.4s ease-out;
-}
 
-.progress-bar {
-    width: 100%;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.06);
-    border-radius: 3px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--purple), var(--cyan));
-    border-radius: 3px;
-    transition: width 0.5s ease;
-    position: relative;
-}
-
-.progress-fill::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    animation: shimmer 1.5s ease infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-.progress-text {
-    font-size: 0.82rem;
-    color: var(--text-secondary);
-    margin-top: 0.5rem;
-    text-align: center;
-}
-
-/* ===== STATUS LOG ===== */
-.status-log-section {
-    margin-bottom: 2rem;
-    animation: fadeInUp 0.4s ease-out;
-}
-
-.status-title {
-    font-family: 'FOT-YurukaStd-UB', sans-serif;
-    font-weight: 600;
-    font-size: 1.1rem;
-    margin-bottom: 0.75rem;
-    color: #fff;
-    text-shadow: 1.5px 1.5px 0 #000, -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000;
-}
-
-.status-log {
-    background: rgba(255, 255, 255, 0.95);
-    border: 3px solid #000;
-    border-radius: var(--radius-md);
-    padding: 1rem 1.25rem;
-    max-height: 220px;
-    overflow-y: auto;
-    font-family: 'FOT-RodinNTLGPro-B', monospace;
-    font-size: 0.85rem;
-    line-height: 2;
-    color: #000;
-    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.15);
-}
-
-.log-entry {
-    color: #1e293b;
-    animation: logFadeIn 0.35s ease-out;
-    padding: 0.1rem 0;
-}
-
-.log-entry::before {
-    content: '›';
-    color: #9333ea;
-    margin-right: 0.5rem;
-    font-weight: 700;
-}
-
-.log-entry.success {
-    color: #15803d;
-}
-
-.log-entry.error {
-    color: #b91c1c;
-}
-
-@keyframes logFadeIn {
-    from { opacity: 0; transform: translateX(-8px); }
-    to { opacity: 1; transform: translateX(0); }
-}
 
 /* ===== DOWNLOAD SECTION ===== */
 .download-section {
@@ -798,8 +685,6 @@ body {
 }
 
 .btn-download:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: inset 0 0 0 3px #fff, 6px 6px 0 #000;
     background-color: #ffd03b;
 }
 
@@ -870,8 +755,6 @@ body {
 }
 
 .btn-retry:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 #000;
     background: #cbd5e1;
 }
 
@@ -1006,8 +889,6 @@ body {
 }
 
 .btn-tutorial-open:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: inset 0 0 0 3px #fff, 6px 6px 0 #000;
     background-color: #ea580c;
 }
 
@@ -1020,38 +901,26 @@ body {
     box-shadow: inset 0 0 0 3px #fff, 2px 2px 0 #000;
 }
 
-/* ===== MODAL TUTORIAL ===== */
-.modal-backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-    transition: opacity 0.3s ease;
+/* ===== COLLAPSIBLE TUTORIAL ===== */
+.tutorial-collapse {
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.3s ease-out;
 }
 
-.modal-backdrop[hidden] {
+.tutorial-collapse[hidden] {
     display: none !important;
 }
 
-.modal-card {
+.tutorial-card {
     position: relative;
     background: rgba(255, 255, 255, 0.98);
     border: 4px solid #000;
     border-radius: var(--radius-lg);
-    box-shadow: inset 0 0 0 4px #fff, 10px 10px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 0 4px #fff, 10px 10px 0 rgba(0, 0, 0, 0.15);
     width: 100%;
-    max-width: 850px;
-    max-height: 85vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    animation: modalPop 0.2s ease-out both;
 }
 
 @keyframes modalPop {
@@ -1059,7 +928,7 @@ body {
     100% { transform: scale(1); opacity: 1; }
 }
 
-.modal-header {
+.tutorial-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1072,7 +941,7 @@ body {
     flex-shrink: 0;
 }
 
-.modal-header::before {
+.tutorial-header::before {
     content: '';
     position: absolute;
     top: 0;
@@ -1084,7 +953,7 @@ body {
     z-index: 0;
 }
 
-.modal-title {
+.tutorial-title {
     font-family: 'FOT-YurukaStd-UB', sans-serif;
     font-weight: 700;
     font-size: 1.5rem;
@@ -1093,7 +962,7 @@ body {
     z-index: 1;
 }
 
-.modal-close {
+.tutorial-close {
     position: relative;
     z-index: 1;
     font-family: 'FOT-YurukaStd-UB', sans-serif;
@@ -1112,21 +981,17 @@ body {
     transition: all 0.2s ease;
 }
 
-.modal-close:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.4), 3px 3px 0 #000;
+.tutorial-close:hover {
     background-color: #ef4444;
 }
 
-.modal-close:active {
+.tutorial-close:active {
     transform: translate(1px, 1px);
     box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.4), 1px 1px 0 #000;
 }
 
-.modal-body {
+.tutorial-body {
     padding: 1.5rem;
-    overflow-y: auto;
-    max-height: calc(85vh - 75px);
     color: #000;
 }
 
@@ -1207,10 +1072,7 @@ body {
     background-color: #000;
 }
 
-.tutorial-img:hover {
-    transform: scale(1.05);
-    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
-}
+
 
 @media (min-width: 650px) {
     .tutorial-step.has-images {
@@ -1273,8 +1135,6 @@ body {
 }
 
 .btn-video-link:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.3), 4px 4px 0 #000;
     background-color: #ef4444;
 }
 
@@ -1343,7 +1203,6 @@ body {
 }
 
 .lightbox-close:hover {
-    transform: scale(1.1);
     background-color: #ef4444;
 }
 

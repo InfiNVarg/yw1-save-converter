@@ -317,11 +317,7 @@ const input3ds = document.getElementById('input3ds');
 const inputSwitch = document.getElementById('inputSwitch');
 const btnConvert = document.getElementById('btnConvert');
 const convertHint = document.getElementById('convertHint');
-const progressWrapper = document.getElementById('progressWrapper');
-const progressFill = document.getElementById('progressFill');
-const progressText = document.getElementById('progressText');
-const statusSection = document.getElementById('statusSection');
-const statusLog = document.getElementById('statusLog');
+
 const downloadSection = document.getElementById('downloadSection');
 const btnDownload = document.getElementById('btnDownload');
 const downloadSize = document.getElementById('downloadSize');
@@ -335,24 +331,7 @@ function formatSize(bytes) {
     return (bytes / 1024).toFixed(1) + ' KB';
 }
 
-function addLog(msg, type = 'info') {
-    statusSection.hidden = false;
-    let entry = document.createElement('div');
-    entry.className = 'log-entry ' + type;
-    entry.textContent = msg;
-    statusLog.appendChild(entry);
-    statusLog.scrollTop = statusLog.scrollHeight;
-}
 
-function clearLog() {
-    statusLog.innerHTML = '';
-}
-
-function setProgress(pct, text) {
-    progressWrapper.hidden = false;
-    progressFill.style.width = pct + '%';
-    if (text) progressText.textContent = text;
-}
 
 function checkReady() {
     let ready = file3ds && fileSwitch;
@@ -480,31 +459,16 @@ function handleFile(file, side) {
 }
 
 // --- Convert ---
-btnConvert.addEventListener('click', async () => {
-    clearLog();
+btnConvert.addEventListener('click', () => {
     downloadSection.hidden = true;
     errorSection.hidden = true;
     btnConvert.disabled = true;
     btnConvert.classList.add('converting');
 
-    setProgress(0, 'Iniciando conversión...');
-
-    // Use setTimeout to allow the UI to repaint between steps
-    await new Promise(r => setTimeout(r, 50));
-
-    let stepCount = 0;
-    const totalSteps = 7;
-
     try {
-        let result = convert3dsToSwitch(file3ds.save, fileSwitch.save, (msg) => {
-            stepCount++;
-            let pct = Math.min(100, Math.round((stepCount / totalSteps) * 100));
-            setProgress(pct, msg);
-            addLog(msg, msg.includes('✅') ? 'success' : 'info');
-        });
+        let result = convert3dsToSwitch(file3ds.save, fileSwitch.save, () => {});
 
         // Show download
-        setProgress(100, '¡Completado!');
         let blob = new Blob([result], { type: 'application/octet-stream' });
         let url = URL.createObjectURL(blob);
         btnDownload.href = url;
@@ -513,9 +477,6 @@ btnConvert.addEventListener('click', async () => {
         downloadSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
     } catch (err) {
-        setProgress(0);
-        progressWrapper.hidden = true;
-        addLog('❌ Error: ' + err.message, 'error');
         errorMessage.textContent = err.message;
         errorSection.hidden = false;
         errorSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -528,8 +489,6 @@ btnConvert.addEventListener('click', async () => {
 // --- Retry ---
 btnRetry.addEventListener('click', () => {
     errorSection.hidden = true;
-    progressWrapper.hidden = true;
-    clearLog();
 });
 
 // --- Init ---
@@ -537,33 +496,29 @@ setupDropZone(zone3ds, input3ds, '3ds');
 setupDropZone(zoneSwitch, inputSwitch, 'switch');
 checkReady();
 
-// --- Tutorial Modal ---
+// --- Tutorial Collapsible ---
 const btnOpenTutorial = document.getElementById('btnOpenTutorial');
 const btnCloseTutorial = document.getElementById('btnCloseTutorial');
-const tutorialModal = document.getElementById('tutorialModal');
+const tutorialCollapse = document.getElementById('tutorialCollapse');
 
-if (btnOpenTutorial && btnCloseTutorial && tutorialModal) {
-    btnOpenTutorial.addEventListener('click', () => {
-        tutorialModal.hidden = false;
-    });
-
-    const closeModal = () => {
-        tutorialModal.hidden = true;
+if (btnOpenTutorial && btnCloseTutorial && tutorialCollapse) {
+    const toggleTutorial = () => {
+        const isHidden = tutorialCollapse.hidden;
+        tutorialCollapse.hidden = !isHidden;
+        if (!tutorialCollapse.hidden) {
+            tutorialCollapse.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     };
 
-    btnCloseTutorial.addEventListener('click', closeModal);
-
-    // Close when clicking backdrop
-    tutorialModal.addEventListener('click', (e) => {
-        if (e.target === tutorialModal) {
-            closeModal();
-        }
+    btnOpenTutorial.addEventListener('click', toggleTutorial);
+    btnCloseTutorial.addEventListener('click', () => {
+        tutorialCollapse.hidden = true;
     });
 
     // Close on Escape key press
     window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !tutorialModal.hidden) {
-            closeModal();
+        if (e.key === 'Escape' && !tutorialCollapse.hidden) {
+            tutorialCollapse.hidden = true;
         }
     });
 }

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YW1 Save Converter — 3DS → Switch</title>
+    <meta name="description" content="Convierte tu partida de Yo-kai Watch 1 de Nintendo 3DS a Nintendo Switch directamente en tu navegador. Sin instalaciones.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👻</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated background orbs -->
+    <div class="bg-orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Moving pattern overlay -->
+    <div class="bg-pattern" aria-hidden="true"></div>
+
+    <main class="container">
+        <!-- Hero Header -->
+        <header class="hero">
+            <h1 class="hero-title">
+                <span class="title-yw">YW1</span> Save Converter
+            </h1>
+            <p class="hero-subtitle">Convierte tu partida de <span class="platform-3ds">3DS</span> a <span class="platform-switch">Switch</span></p>
+            <div class="hero-actions">
+                <button class="btn-tutorial-open" id="btnOpenTutorial"><span>📖 Guía de Traspaso</span></button>
+            </div>
+        </header>
+
+        <!-- Drop Zones -->
+        <section class="drop-zones" aria-label="Zonas de carga de archivos">
+            <!-- 3DS Save Drop Zone Column -->
+            <div class="drop-column">
+                <div class="drop-zone" id="zone3ds" tabindex="0" role="button" aria-label="Cargar partida de 3DS">
+                    <input type="file" id="input3ds" class="file-input" accept=".yw,.sav,.bin" aria-hidden="true">
+                    <div class="drop-zone-content" id="zone3ds-content">
+                        <div class="drop-zone-icon">🎮</div>
+                        <h3 class="drop-zone-title">Partida 3DS</h3>
+                        <p class="drop-zone-ext">.yw</p>
+                        <p class="drop-zone-hint">Arrastra tu archivo aquí o haz clic para buscar</p>
+                        <div class="drop-zone-border"></div>
+                    </div>
+                    <div class="drop-zone-info" id="zone3ds-info" hidden>
+                        <div class="file-icon">✅</div>
+                        <p class="file-name" id="zone3ds-name"></p>
+                        <p class="file-size" id="zone3ds-size"></p>
+                        <p class="file-platform" id="zone3ds-platform"></p>
+                        <button class="file-remove" id="zone3ds-remove" aria-label="Quitar archivo">✕ Quitar</button>
+                    </div>
+                </div>
+                <!-- Jibanyan 3DS -->
+                <div class="jibanyan-container" id="jibanyan3ds" hidden>
+                    <img src="Jibanyan3DS.png" alt="Jibanyan 3DS" class="jibanyan-img">
+                </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="arrow-connector" aria-hidden="true">
+                <span class="arrow-icon">→</span>
+            </div>
+
+            <!-- Switch Template Drop Zone Column -->
+            <div class="drop-column">
+                <div class="drop-zone" id="zoneSwitch" tabindex="0" role="button" aria-label="Cargar plantilla de Switch">
+                    <input type="file" id="inputSwitch" class="file-input" accept=".yw,.sav,.bin" aria-hidden="true">
+                    <div class="drop-zone-content" id="zoneSwitch-content">
+                        <div class="drop-zone-icon">⌚</div>
+                        <h3 class="drop-zone-title">Plantilla Switch</h3>
+                        <p class="drop-zone-ext">.yw</p>
+                        <p class="drop-zone-hint">Arrastra tu archivo aquí o haz clic para buscar</p>
+                        <div class="drop-zone-border"></div>
+                    </div>
+                    <div class="drop-zone-info" id="zoneSwitch-info" hidden>
+                        <div class="file-icon">✅</div>
+                        <p class="file-name" id="zoneSwitch-name"></p>
+                        <p class="file-size" id="zoneSwitch-size"></p>
+                        <p class="file-platform" id="zoneSwitch-platform"></p>
+                        <button class="file-remove" id="zoneSwitch-remove" aria-label="Quitar archivo">✕ Quitar</button>
+                    </div>
+                </div>
+                <!-- Jibanyan Switch -->
+                <div class="jibanyan-container" id="jibanyanSwitch" hidden>
+                    <img src="JibanyanSwitch.png" alt="Jibanyan Switch" class="jibanyan-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Convert Button -->
+        <section class="convert-section">
+            <button class="btn-convert" id="btnConvert" disabled>
+
+                <span class="btn-convert-text">Convertir</span>
+            </button>
+            <p class="convert-hint" id="convertHint">Carga ambos archivos para comenzar</p>
+        </section>
+
+        <!-- Progress Bar -->
+        <div class="progress-wrapper" id="progressWrapper" hidden>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="progress-text" id="progressText">Procesando...</p>
+        </div>
+
+        <!-- Status Log -->
+        <section class="status-log-section" id="statusSection" hidden>
+            <h3 class="status-title">📋 Registro de Conversión</h3>
+            <div class="status-log" id="statusLog" role="log" aria-live="polite"></div>
+        </section>
+
+        <!-- Download Section -->
+        <section class="download-section" id="downloadSection" hidden>
+            <div class="download-card">
+                <div class="download-icon">🎉</div>
+                <h3 class="download-title">¡Conversión Exitosa!</h3>
+                <p class="download-desc">Tu partida de Switch está lista para descargar</p>
+                <a class="btn-download" id="btnDownload" download="yw1_switch_converted.yw">
+                    <span class="btn-download-icon">⬇️</span>
+                    <span>Descargar Save Convertido</span>
+                </a>
+                <p class="download-size" id="downloadSize"></p>
+            </div>
+        </section>
+
+        <!-- Error Section -->
+        <section class="error-section" id="errorSection" hidden>
+            <div class="error-card">
+                <div class="error-icon">❌</div>
+                <h3 class="error-title">Error en la Conversión</h3>
+                <p class="error-desc" id="errorMessage"></p>
+                <button class="btn-retry" id="btnRetry">🔄 Reintentar</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-security">Esta herramienta es experimental. Puede que encuentres algún error.</p>
+            <p class="footer-credit">YW1 Save Converter — Hecho para la comunidad de Yo-kai Watch</p>
+        </div>
+    </footer>
+
+    <!-- Modal Tutorial -->
+    <div class="modal-backdrop" id="tutorialModal" hidden>
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 class="modal-title">📖 Guía de Traspaso</h2>
+                <button class="modal-close" id="btnCloseTutorial" aria-label="Cerrar tutorial">✕</button>
+            </div>
+            <div class="modal-body">
+                <!-- Paso 1 -->
+                <div class="tutorial-step has-images">
+                    <div class="step-text">
+                        <h3 class="step-title">Paso 1</h3>
+                        <p>Borra (o mueve a otra carpeta) todos los datos de guardado que tengas de YW1 de Switch, empieza una nueva partida y guarda partida en cuanto puedas.</p>
+                    </div>
+                    <div class="step-images flex-images">
+                        <img src="tutorial1image1.png" alt="Paso 1 - Imagen 1" class="tutorial-img">
+                        <img src="tutorial1image2.png" alt="Paso 1 - Imagen 2" class="tutorial-img">
+                    </div>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="tutorial-step">
+                    <div class="step-text">
+                        <h3 class="step-title">Paso 2</h3>
+                        <p>Obtén tu partida de 3DS y la partida que acabas de guardar en Switch.</p>
+                    </div>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="tutorial-step has-images">
+                    <div class="step-text">
+                        <h3 class="step-title">Paso 3</h3>
+                        <p>Pon en esta página los archivos correspondientes y descarga el resultado.</p>
+                    </div>
+                    <div class="step-images">
+                        <img src="tutorial3image1.png" alt="Paso 3" class="tutorial-img">
+                    </div>
+                </div>
+
+                <!-- Paso 4 -->
+                <div class="tutorial-step has-images">
+                    <div class="step-text">
+                        <h3 class="step-title">Paso 4</h3>
+                        <p>Reemplaza el archivo resultante por la partida que creaste antes en YW1 de Switch (en nuestro caso es <code>game1</code>, pero puede ser <code>game2</code> o <code>game3</code> en caso de que lo hayas puesto en otro slot).</p>
+                    </div>
+                    <div class="step-images">
+                        <img src="tutorial4image1.png" alt="Paso 4" class="tutorial-img">
+                    </div>
+                </div>
+
+                <!-- Paso 5 -->
+                <div class="tutorial-step has-images">
+                    <div class="step-text">
+                        <h3 class="step-title">Paso 5</h3>
+                        <p>Abre el juego y dale a continuar. Verás que al principio sigue saliendo la partida que creamos antes, pero esto es solo visual, al darle, estarás en tu partida.</p>
+                    </div>
+                    <div class="step-images">
+                        <img src="tutorial5image1.png" alt="Paso 5" class="tutorial-img">
+                    </div>
+                </div>
+
+                <!-- Extra -->
+                <div class="tutorial-step extra-step">
+                    <div class="step-text">
+                        <h3 class="step-title">Extra: Cosas a tener en cuenta</h3>
+                        <p>Los Yo-kai que tengas equipados en ese momento no se guardan, pero siempre puedes ir al ignóculo para volver a equipartelos. Esta herramienta es experimental, así que puede que haya cosas que no se hayan pasado correctamente.</p>
+                    </div>
+                </div>
+
+                <!-- YouTube Video Link -->
+                <div class="tutorial-video-card">
+                    <div class="video-card-icon">📺</div>
+                    <div class="video-card-content">
+                        <h4 class="video-card-title">¿Quieres ver el proceso en vídeo?</h4>
+                        <p class="video-card-desc">Aquí tienes un videotutorial paso a paso que muestra todo el proceso visualmente:</p>
+                        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn-video-link">
+                            <span>▶ Ver Tutorial de Traspaso en YouTube</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Zoom -->
+    <div class="lightbox-overlay" id="lightboxOverlay" hidden>
+        <div class="lightbox-content">
+            <img src="" alt="Imagen ampliada" id="lightboxImg">
+            <button class="lightbox-close" id="btnLightboxClose" aria-label="Cerrar imagen zoom">✕</button>
+        </div>
+    </div>
+
+    <script src="converter.js"></script>
+</body>
+</html>
